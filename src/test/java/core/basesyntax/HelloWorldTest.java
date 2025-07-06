@@ -67,12 +67,14 @@ public class HelloWorldTest {
                 "p,pineapple,10",
                 "r,pineapple,3",
                 "p,pineapple,5",
-                "p,pineapple,4"
+                "p,pineapple,4",
+                "b,cucumber,5"
         );
         reportOutExpected = List.of("fruit,quantity",
                 "banana,152",
                 "apple,90",
-                "pineapple,214");
+                "pineapple,214",
+                "cucumber,5");
         data = "reportToReadTest.csv";
         dataEmpty = "emptyData.csv";
         dataNonExist = "nonExistData.csv";
@@ -181,12 +183,42 @@ public class HelloWorldTest {
 
     @Test
     public void fruitNotInStorage_ThrowException() {
-        FruitTransaction tx = new FruitTransaction("banana",
-                5,
-                FruitTransaction.Operation.PURCHASE);
+        FruitTransaction ft = new FruitTransaction("banana",
+                5, FruitTransaction.Operation.PURCHASE);
         OperationHandler purchaseOperation = new PurchaseOperation();
-        assertThrows(IllegalArgumentException.class, () -> purchaseOperation.apply(tx),
-                "Expected exception when fruit not found in storage");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            purchaseOperation.apply(ft);
+        });
+        assertEquals("Fruit '" + ft.getFruit() + "' not found in storage!",
+                exception.getMessage());
+    }
+
+    @Test
+    public void negativeQuantity_ThrowException() {
+        Storage.getAssortment().put("cucumber", 3);
+        FruitTransaction ft = new FruitTransaction("cucumber",
+                -3, FruitTransaction.Operation.PURCHASE);
+        OperationHandler purchaseOperation = new PurchaseOperation();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            purchaseOperation.apply(ft);
+        });
+        assertEquals("Negative quantity is not allowed: " + ft.getQuantity(),
+                exception.getMessage());
+    }
+
+    @Test
+    public void notEnoughFruit_ThrowException() {
+        Storage.getAssortment().put("cucumber", 3);
+        int current = Storage.getAssortment().get("cucumber");
+        FruitTransaction ft = new FruitTransaction("cucumber",
+                4, FruitTransaction.Operation.PURCHASE);
+        OperationHandler purchaseOperation = new PurchaseOperation();
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            purchaseOperation.apply(ft);
+        });
+        assertEquals("Not enough '" + ft.getFruit() + "' in storage! Only " + current + " left.",
+                exception.getMessage());
     }
 
     private List<FruitTransaction> setListFruit(String data) {
