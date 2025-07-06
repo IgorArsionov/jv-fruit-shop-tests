@@ -221,6 +221,17 @@ public class HelloWorldTest {
                 exception.getMessage());
     }
 
+    @Test
+    void get_unknownOperation_shouldThrowException() {
+        Map<FruitTransaction.Operation, OperationHandler> map = new HashMap<>();
+        OperationStrategyImpl strategy = new OperationStrategyImpl(map);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                        strategy.get(FruitTransaction.Operation.PURCHASE),
+                "Expected exception when no handler is registered for the operation"
+        );
+    }
+
     private List<FruitTransaction> setListFruit(String data) {
         result = fileReader.read(data);
         return converter.convert(result);
