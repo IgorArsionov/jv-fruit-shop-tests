@@ -1,5 +1,6 @@
 package core.basesyntax;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HelloWorldTest {
@@ -92,8 +94,13 @@ public class HelloWorldTest {
         generator = new ReportGeneratorImpl();
     }
 
+    @BeforeEach
+    public void clearDataBass() {
+        Storage.getAssortment().clear();
+    }
+
     @Test
-    public void nonExistFile() {
+    public void nonExistData() {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             fileReader.read("nonExistData.csv");
         });
@@ -172,7 +179,7 @@ public class HelloWorldTest {
     }
 
     @Test
-    public void writerFile_NotEmpty() {
+    public void writerFile_WriteOk() {
         File file = setFile(data);
         List<String> resultReportFromFile = readFile(file);
         assertEquals(reportOutExpected, resultReportFromFile,
@@ -222,14 +229,18 @@ public class HelloWorldTest {
     }
 
     @Test
-    void get_unknownOperation_shouldThrowException() {
+    void nullHandler_shouldThrowException() {
         Map<FruitTransaction.Operation, OperationHandler> map = new HashMap<>();
-        OperationStrategyImpl strategy = new OperationStrategyImpl(map);
+        OperationStrategy strategy = new OperationStrategyImpl(map);
 
-        assertThrows(IllegalArgumentException.class, () ->
-                        strategy.get(FruitTransaction.Operation.PURCHASE),
-                "Expected exception when no handler is registered for the operation"
-        );
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> strategy.get(FruitTransaction.Operation.SUPPLY));
+        assertEquals("No handler found for operation: SUPPLY", ex.getMessage());
+    }
+
+    @Test
+    void mainMethod_shouldNotThrowException() {
+        assertDoesNotThrow(() -> HelloWorld.main(new String[]{}));
     }
 
     private List<FruitTransaction> setListFruit(String data) {
