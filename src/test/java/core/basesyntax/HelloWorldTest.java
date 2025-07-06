@@ -179,6 +179,16 @@ public class HelloWorldTest {
                         + "But was: " + resultReportFromFile);
     }
 
+    @Test
+    public void fruitNotInStorage_ThrowException() {
+        FruitTransaction tx = new FruitTransaction("banana",
+                5,
+                FruitTransaction.Operation.PURCHASE);
+        OperationHandler purchaseOperation = new PurchaseOperation();
+        assertThrows(IllegalArgumentException.class, () -> purchaseOperation.apply(tx),
+                "Expected exception when fruit not found in storage");
+    }
+
     private List<FruitTransaction> setListFruit(String data) {
         result = fileReader.read(data);
         return converter.convert(result);
