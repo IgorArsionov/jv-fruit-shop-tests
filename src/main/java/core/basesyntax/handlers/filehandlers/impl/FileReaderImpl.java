@@ -20,9 +20,6 @@ public class FileReaderImpl implements FileReader {
         } catch (IOException e) {
             throw new RuntimeException("Errors reading file: " + name);
         }
-        if (dbList.size() != 0) {
-            dbList.remove(0);
-        }
         return dbList;
     }
 }

@@ -25,12 +25,12 @@ import java.util.Map;
  * Feel free to remove this class and create your own.
  */
 public class HelloWorld {
-    private static final String NAME_INPUT = "reportToRead.csv";
-    private static final String NAME_OUTPUT = "finalReport.csv";
+    private static final String INPUT_FILE = "src/main/resources/reportToRead.csv";
+    private static final String OUTPUT_FILE = "src/main/resources/finalReport.csv";
 
     public static void main(String[] args) {
         FileReader fileReader = new FileReaderImpl();
-        List<String> inputReport = fileReader.read(NAME_INPUT);
+        List<String> inputReport = fileReader.read(INPUT_FILE);
 
         DataConverter converter = new DataConverterImpl();
 
@@ -49,6 +49,6 @@ public class HelloWorld {
         List<String> resultingReport = generator.getReport();
 
         FileWriter writer = new FileWriterImpl();
-        writer.write(resultingReport, NAME_OUTPUT);
+        writer.write(resultingReport, OUTPUT_FILE);
     }
 }
