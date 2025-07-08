@@ -6,6 +6,7 @@ import core.basesyntax.handlers.OperationHandler;
 
 public class PurchaseOperation implements OperationHandler {
     private static final int ZERO = 0;
+    
     @Override
     public void apply(FruitTransaction transaction) {
         String nameFruit = transaction.getFruit();
