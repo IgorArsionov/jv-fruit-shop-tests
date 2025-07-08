@@ -5,8 +5,7 @@ import core.basesyntax.data.Storage;
 import core.basesyntax.handlers.OperationHandler;
 
 public class PurchaseOperation implements OperationHandler {
-    private int current = 0;
-
+    private static final int ZERO = 0;
     @Override
     public void apply(FruitTransaction transaction) {
         String nameFruit = transaction.getFruit();
@@ -15,11 +14,11 @@ public class PurchaseOperation implements OperationHandler {
         if (current == null) {
             throw new IllegalArgumentException("Fruit '" + nameFruit + "' not found in storage!");
         }
-        if (quantity < 0) {
+        if (quantity < ZERO) {
             throw new IllegalArgumentException("Negative quantity is not allowed: " + quantity);
         }
         int result = current - quantity;
-        if (result < 0) {
+        if (result < ZERO) {
             throw new IllegalArgumentException("Not enough '"
                     + nameFruit + "' in storage! Only " + current + " left.");
         }

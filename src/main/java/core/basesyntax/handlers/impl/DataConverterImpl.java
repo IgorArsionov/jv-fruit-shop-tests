@@ -11,6 +11,7 @@ public class DataConverterImpl implements DataConverter {
     private static final int FRUIT_OPERATION = 0;
     private static final int FRUIT_NAME = 1;
     private static final int FRUIT_QUANTITY = 2;
+    private static final int DELETE_COLUM = 0;
     private static FruitPars fruitPars;
 
     public DataConverterImpl() {
@@ -21,7 +22,7 @@ public class DataConverterImpl implements DataConverter {
     public List<FruitTransaction> convert(List<String> inputReport) {
         List<String> inputReportConvert = new ArrayList<>(inputReport);
         if (!inputReportConvert.isEmpty()) {
-            inputReportConvert.remove(0);
+            inputReportConvert.remove(DELETE_COLUM);
         }
         return inputReportConvert.stream()
                 .map(string -> string.split(SPLIT))
