@@ -52,6 +52,15 @@ public class FruitTransaction {
         public String getCode() {
             return code;
         }
+
+        public static Operation fromCode(String code) {
+            for (Operation op : values()) {
+                if (op.getCode().equals(code)) {
+                    return op;
+                }
+            }
+            throw new IllegalArgumentException("Unknown operation code: " + code);
+        }
     }
 
     @Override
@@ -68,14 +77,5 @@ public class FruitTransaction {
     @Override
     public int hashCode() {
         return Objects.hash(operation, fruit, quantity);
-    }
-
-    @Override
-    public String toString() {
-        return "FruitTransaction{"
-                + "operation=" + operation
-                + ", fruit='" + fruit + '\''
-                + ", quantity=" + quantity
-                + '}';
     }
 }
