@@ -17,6 +17,7 @@ import core.basesyntax.handlers.impl.ReturnOperation;
 import core.basesyntax.handlers.impl.SupplyOperation;
 import core.basesyntax.handlers.service.ShopService;
 import core.basesyntax.handlers.service.impl.ShopServiceImpl;
+import core.basesyntax.model.FruitTransaction;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,8 +48,9 @@ public class HelloWorld {
 
         ReportGenerator generator = new ReportGeneratorImpl();
         List<String> resultingReport = generator.getReport();
+        String reportAsString = String.join(System.lineSeparator(), resultingReport);
 
         FileWriter writer = new FileWriterImpl();
-        writer.write(resultingReport, OUTPUT_FILE);
+        writer.write(reportAsString, OUTPUT_FILE);
     }
 }

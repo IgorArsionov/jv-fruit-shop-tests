@@ -1,9 +1,14 @@
 package core.basesyntax;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.handlers.DataConverter;
 import core.basesyntax.handlers.impl.DataConverterImpl;
+import core.basesyntax.model.FruitTransaction;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,6 +35,30 @@ public class DataConverterTest {
         assertEquals(fruitTransactionsExpected, result,
                 "Result does not match the expectation. It should be: "
                         + fruitTransactionsExpected + ". But it was: " + result);
+    }
+
+    @Test
+    public void converter_NotNull() {
+        List<String> empty = List.of();
+        List<FruitTransaction> result = converter.convert(empty);
+        assertNotNull(result, "Converter should not return null for empty input");
+        assertTrue(result.isEmpty(), "Result list should be empty when input is empty");
+    }
+
+    @Test
+    public void converter_NotThrow() {
+        List<String> empty = List.of();
+        assertDoesNotThrow(() -> converter.convert(empty));
+    }
+
+    @Test
+    public void converter_ThrowOk() {
+        List<String> input = List.of("type,fruit,quantity", "x,banana,10");
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            converter.convert(input);
+        });
+        assertEquals("Unknown operation code: x", exception.getMessage());
     }
 }
 

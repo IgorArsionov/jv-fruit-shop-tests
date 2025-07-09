@@ -22,7 +22,7 @@ public class FileReaderTest {
     }
 
     @Test
-    public void nonExistData() {
+    public void file_Not_Exist() {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             fileReader.read(dataNonExist);
         });
@@ -30,7 +30,7 @@ public class FileReaderTest {
     }
 
     @Test
-    public void emptyData() {
+    public void empty_Data() {
         List<String> resultReader = fileReader.read(dataEmpty);
         assertNotNull(resultReader, "Result not be null");
         assertTrue(resultReader.isEmpty(), "Empty list expected");

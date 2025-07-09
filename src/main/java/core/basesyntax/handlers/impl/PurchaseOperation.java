@@ -1,12 +1,11 @@
 package core.basesyntax.handlers.impl;
 
-import core.basesyntax.FruitTransaction;
 import core.basesyntax.data.Storage;
 import core.basesyntax.handlers.OperationHandler;
+import core.basesyntax.model.FruitTransaction;
 
 public class PurchaseOperation implements OperationHandler {
-    private static final int ZERO = 0;
-    
+
     @Override
     public void apply(FruitTransaction transaction) {
         String nameFruit = transaction.getFruit();
@@ -15,11 +14,11 @@ public class PurchaseOperation implements OperationHandler {
         if (current == null) {
             throw new IllegalArgumentException("Fruit '" + nameFruit + "' not found in storage!");
         }
-        if (quantity < ZERO) {
+        if (quantity < 0) {
             throw new IllegalArgumentException("Negative quantity is not allowed: " + quantity);
         }
         int result = current - quantity;
-        if (result < ZERO) {
+        if (result < 0) {
             throw new IllegalArgumentException("Not enough '"
                     + nameFruit + "' in storage! Only " + current + " left.");
         }
