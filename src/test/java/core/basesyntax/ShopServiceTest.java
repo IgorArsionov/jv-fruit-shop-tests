@@ -56,7 +56,7 @@ public class ShopServiceTest {
     }
 
     @Test
-    public void shopService_EmptyOk() {
+    public void shopService_emptyOk() {
         List<FruitTransaction> fruitTransactions = List.of();
         service.process(fruitTransactions);
         Map<String, Integer> assortmentExp = Storage.getAssortment();
