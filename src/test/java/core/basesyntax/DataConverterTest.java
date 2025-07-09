@@ -60,5 +60,11 @@ public class DataConverterTest {
         });
         assertEquals("Unknown operation code: x", exception.getMessage());
     }
+
+    @Test
+    void dataConverter_shouldThrow_whenLineHasTooFewFields() {
+        List<String> input = List.of("type,fruit,quantity", "b,banana"); // только 2 поля
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> converter.convert(input));
+    }
 }
 
