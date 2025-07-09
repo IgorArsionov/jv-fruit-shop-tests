@@ -7,16 +7,16 @@ import core.basesyntax.handlers.ReportGenerator;
 import core.basesyntax.handlers.impl.ReportGeneratorImpl;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ReportGeneratorTest {
-    private static ReportGenerator generator;
     private static final Map<String, Integer> STORAGE = Storage.getAssortment();
-    private static List<String> resultExpected;
+    private ReportGenerator generator;
+    private List<String> resultExpected;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         generator = new ReportGeneratorImpl();
         STORAGE.put("banana", 20);
         STORAGE.put("cucumber", 15);

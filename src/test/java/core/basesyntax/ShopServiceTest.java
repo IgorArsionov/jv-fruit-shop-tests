@@ -17,15 +17,14 @@ import core.basesyntax.model.FruitTransaction;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ShopServiceTest {
-    private static ShopService service;
+    private ShopService service;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         Map<FruitTransaction.Operation, OperationHandler> handlers = new HashMap<>();
         handlers.put(FruitTransaction.Operation.BALANCE, new BalanceHandler());
         handlers.put(FruitTransaction.Operation.PURCHASE, new PurchaseOperation());

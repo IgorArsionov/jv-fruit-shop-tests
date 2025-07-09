@@ -10,16 +10,16 @@ import core.basesyntax.handlers.DataConverter;
 import core.basesyntax.handlers.impl.DataConverterImpl;
 import core.basesyntax.model.FruitTransaction;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DataConverterTest {
-    private static DataConverter converter;
-    private static List<String> resultReaderExpected;
-    private static List<FruitTransaction> fruitTransactionsExpected;
+    private DataConverter converter;
+    private List<String> resultReaderExpected;
+    private List<FruitTransaction> fruitTransactionsExpected;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         converter = new DataConverterImpl();
         resultReaderExpected = List.of(
                 "type,fruit,quantity",

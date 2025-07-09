@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OperationHandlerTest {
-    private static OperationHandler handler;
+    private OperationHandler handler;
 
     @BeforeEach
     public void setUp() {

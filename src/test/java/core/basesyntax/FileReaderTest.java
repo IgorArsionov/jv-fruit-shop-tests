@@ -8,16 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import core.basesyntax.handlers.filehandlers.FileReader;
 import core.basesyntax.handlers.filehandlers.impl.FileReaderImpl;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FileReaderTest {
-    private static FileReader fileReader;
-    private static String dataEmpty = "src/main/resources/emptyData.csv";
-    private static String dataNonExist = "src/main/resources/nonExistData.csv";
+    private static final String dataEmpty = "src/main/resources/emptyData.csv";
+    private static final String dataNonExist = "src/main/resources/nonExistData.csv";
+    private FileReader fileReader;
 
-    @BeforeAll
-    public static void init() {
+    @BeforeEach
+    public void init() {
         fileReader = new FileReaderImpl();
     }
 

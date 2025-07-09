@@ -7,17 +7,17 @@ import core.basesyntax.handlers.filehandlers.FileWriter;
 import core.basesyntax.handlers.filehandlers.impl.FileWriterImpl;
 import java.io.File;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FileWriterTest {
     private static final String OUTPUT_FILE = "src/main/resources/reportToReadTestOut.csv";
-    private static FileWriter writer;
-    private static List<String> simpleData;
-    private static String data;
+    private FileWriter writer;
+    private List<String> simpleData;
+    private String data;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         writer = new FileWriterImpl();
         simpleData = List.of("fruit,quantity",
                 "banana,152", "apple,90", "pineapple,214", "cucumber,5");
