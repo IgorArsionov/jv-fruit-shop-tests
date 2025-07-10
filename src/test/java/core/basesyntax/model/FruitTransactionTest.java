@@ -1,35 +1,12 @@
-package core.basesyntax;
+package core.basesyntax.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import core.basesyntax.model.FruitTransaction;
 import org.junit.jupiter.api.Test;
 
 public class FruitTransactionTest {
-
-    @Test
-    void fruitTransaction_creationAndGetters_Ok() {
-        FruitTransaction transaction = new FruitTransaction("banana",
-                10, FruitTransaction.Operation.SUPPLY);
-        assertEquals("banana", transaction.getFruit());
-        assertEquals(10, transaction.getQuantity());
-        assertEquals(FruitTransaction.Operation.SUPPLY, transaction.getOperation());
-    }
-
-    @Test
-    void fruitTransaction_setters_Ok() {
-        FruitTransaction transaction = new FruitTransaction("apple",
-                5, FruitTransaction.Operation.BALANCE);
-        transaction.setFruit("orange");
-        transaction.setQuantity(100);
-        transaction.setOperation(FruitTransaction.Operation.PURCHASE);
-
-        assertEquals("orange", transaction.getFruit());
-        assertEquals(100, transaction.getQuantity());
-        assertEquals(FruitTransaction.Operation.PURCHASE, transaction.getOperation());
-    }
 
     @Test
     void fruitTransaction_equalsAndHashCode_Ok() {
@@ -46,11 +23,24 @@ public class FruitTransactionTest {
     }
 
     @Test
+    void equals_nullOrDifferentType_shouldReturnFalse() {
+        FruitTransaction tx = new FruitTransaction("apple",
+                10, FruitTransaction.Operation.BALANCE);
+
+        assertNotEquals(tx, null);
+        assertNotEquals(tx, "not a transaction");
+    }
+
+    @Test
     void operation_fromCode_ReturnCorrectEnum() {
-        assertEquals(FruitTransaction.Operation.BALANCE, FruitTransaction.Operation.fromCode("b"));
-        assertEquals(FruitTransaction.Operation.SUPPLY, FruitTransaction.Operation.fromCode("s"));
-        assertEquals(FruitTransaction.Operation.PURCHASE, FruitTransaction.Operation.fromCode("p"));
-        assertEquals(FruitTransaction.Operation.RETURN, FruitTransaction.Operation.fromCode("r"));
+        assertEquals(FruitTransaction.Operation.BALANCE,
+                FruitTransaction.Operation.fromCode("b"));
+        assertEquals(FruitTransaction.Operation.SUPPLY,
+                FruitTransaction.Operation.fromCode("s"));
+        assertEquals(FruitTransaction.Operation.PURCHASE,
+                FruitTransaction.Operation.fromCode("p"));
+        assertEquals(FruitTransaction.Operation.RETURN,
+                FruitTransaction.Operation.fromCode("r"));
     }
 
     @Test
@@ -67,6 +57,27 @@ public class FruitTransactionTest {
         assertEquals("s", FruitTransaction.Operation.SUPPLY.getCode());
         assertEquals("p", FruitTransaction.Operation.PURCHASE.getCode());
         assertEquals("r", FruitTransaction.Operation.RETURN.getCode());
+    }
+
+    @Test
+    void equals_nullFruitHandledCorrectly() {
+        FruitTransaction tx1 = new FruitTransaction(null,
+                10, FruitTransaction.Operation.BALANCE);
+        FruitTransaction tx2 = new FruitTransaction(null,
+                10, FruitTransaction.Operation.BALANCE);
+
+        assertEquals(tx1, tx2);
+        assertEquals(tx1.hashCode(), tx2.hashCode());
+    }
+
+    @Test
+    void setters_shouldAffectEquality() {
+        FruitTransaction tx1 = new FruitTransaction("apple",
+                10, FruitTransaction.Operation.BALANCE);
+        FruitTransaction tx2 = new FruitTransaction("apple",
+                10, FruitTransaction.Operation.BALANCE);
+        tx2.setFruit("banana");
+        assertNotEquals(tx1, tx2);
     }
 
 }

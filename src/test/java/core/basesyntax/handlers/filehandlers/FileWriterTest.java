@@ -1,9 +1,9 @@
-package core.basesyntax;
+package core.basesyntax.handlers.filehandlers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import core.basesyntax.handlers.filehandlers.FileWriter;
 import core.basesyntax.handlers.filehandlers.impl.FileWriterImpl;
 import java.io.File;
 import java.util.List;
@@ -35,9 +35,11 @@ public class FileWriterTest {
     public void writerFile_WriteOk() {
         FileWriter writer = new FileWriterImpl();
         String directoryPath = "src/main/resources";
-        assertThrows(RuntimeException.class, () -> {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             writer.write(data, directoryPath);
         });
+        assertEquals("Errors create and write file: " + directoryPath,
+                exception.getMessage());
     }
 }
 

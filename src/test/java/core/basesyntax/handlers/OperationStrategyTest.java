@@ -1,10 +1,8 @@
-package core.basesyntax;
+package core.basesyntax.handlers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import core.basesyntax.handlers.OperationHandler;
-import core.basesyntax.handlers.OperationStrategy;
 import core.basesyntax.handlers.impl.OperationStrategyImpl;
 import core.basesyntax.handlers.impl.PurchaseOperation;
 import core.basesyntax.handlers.impl.ReturnOperation;

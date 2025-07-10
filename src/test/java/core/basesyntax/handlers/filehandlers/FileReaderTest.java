@@ -1,11 +1,10 @@
-package core.basesyntax;
+package core.basesyntax.handlers.filehandlers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import core.basesyntax.handlers.filehandlers.FileReader;
 import core.basesyntax.handlers.filehandlers.impl.FileReaderImpl;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

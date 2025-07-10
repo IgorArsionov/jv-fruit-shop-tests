@@ -1,4 +1,4 @@
-package core.basesyntax;
+package core.basesyntax.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -60,6 +60,20 @@ public class ShopServiceTest {
         service.process(fruitTransactions);
         Map<String, Integer> assortmentExp = Storage.getAssortment();
         assertTrue(assortmentExp.isEmpty(), "Must be empty");
+    }
+
+    @Test
+    void processTransactions_updatesStorageCorrectly() {
+        FruitTransaction tx1 = new FruitTransaction("apple",
+                20, FruitTransaction.Operation.SUPPLY);
+        FruitTransaction tx2 = new FruitTransaction("apple",
+                10, FruitTransaction.Operation.PURCHASE);
+        List<FruitTransaction> transactions = List.of(tx1, tx2);
+
+        Storage.getAssortment().clear();
+        service.process(transactions);
+
+        assertEquals(10, Storage.getAssortment().get("apple"));
     }
 }
 

@@ -1,4 +1,4 @@
-package core.basesyntax;
+package core.basesyntax.handlers;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import core.basesyntax.handlers.DataConverter;
 import core.basesyntax.handlers.impl.DataConverterImpl;
 import core.basesyntax.model.FruitTransaction;
 import java.util.List;
@@ -63,7 +62,7 @@ public class DataConverterTest {
 
     @Test
     void dataConverter_shouldThrow_whenLineHasTooFewFields() {
-        List<String> input = List.of("type,fruit,quantity", "b,banana"); // только 2 поля
+        List<String> input = List.of("type,fruit,quantity", "b,banana");
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> converter.convert(input));
     }
 }

@@ -1,53 +1,20 @@
-package core.basesyntax;
+package core.basesyntax.handlers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import core.basesyntax.data.Storage;
-import core.basesyntax.handlers.OperationHandler;
-import core.basesyntax.handlers.impl.BalanceHandler;
 import core.basesyntax.handlers.impl.PurchaseOperation;
-import core.basesyntax.handlers.impl.ReturnOperation;
-import core.basesyntax.handlers.impl.SupplyOperation;
 import core.basesyntax.model.FruitTransaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class OperationHandlerTest {
+public class PurchaseOperationTest {
     private OperationHandler handler;
 
     @BeforeEach
     public void setUp() {
         Storage.getAssortment().clear();
-    }
-
-    @Test
-    public void balance_shouldAddQuantity() {
-        handler = new BalanceHandler();
-        FruitTransaction tx = new FruitTransaction("apple",
-                50, FruitTransaction.Operation.BALANCE);
-        handler.apply(tx);
-        assertEquals(50, Storage.getAssortment().get("apple"));
-    }
-
-    @Test
-    public void supplyHandler_shouldIncreaseQuantity() {
-        Storage.getAssortment().put("banana", 20);
-        handler = new SupplyOperation();
-        FruitTransaction tx = new FruitTransaction("banana",
-                30, FruitTransaction.Operation.SUPPLY);
-        handler.apply(tx);
-        assertEquals(50, Storage.getAssortment().get("banana"));
-    }
-
-    @Test
-    public void returnHandler_shouldIncreaseQuantity() {
-        Storage.getAssortment().put("banana", 30);
-        handler = new ReturnOperation();
-        FruitTransaction tx = new FruitTransaction("banana",
-                10, FruitTransaction.Operation.RETURN);
-        handler.apply(tx);
-        assertEquals(40, Storage.getAssortment().get("banana"));
     }
 
     @Test
@@ -61,7 +28,7 @@ public class OperationHandlerTest {
     }
 
     @Test
-    public void purchaseHandler_shouldThrow_FruitNotInStorage() {
+    public void purchaseHandler_fruitNotInStorage_notOk() {
         handler = new PurchaseOperation();
         FruitTransaction tx = new FruitTransaction("banana",
                 10, FruitTransaction.Operation.PURCHASE);
